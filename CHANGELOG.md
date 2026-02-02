@@ -1,3 +1,9 @@
+## [2.31] - 2026-02-02
+### Usabilidad y Feedback Visual
+- **Feedback de Copiado**: Implementado estado de éxito interactivo en el botón de copiar. Cambia a "¡Copiado!" durante 2 segundos con efecto de escala.
+- **Mejora de Consola**: Refinado el contraste y la interactividad de la terminal técnica.
+- **Sincronización Nativa**: Actualizada la versión v2.31 en todos los manifiestos de Android.
+
 ## [2.30] - 2026-02-02
 ### Experiencia de Usuario y Pulido Visual
 - **Cronómetro Fluido**: Implementado temporizador independiente del GPS para una cuenta atrás segundo a segundo constante.
