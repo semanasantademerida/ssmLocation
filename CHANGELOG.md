@@ -1,6 +1,9 @@
-# Changelog (Historial de Cambios)
-
-Todos los cambios notables en este proyecto serán documentados en este archivo.
+## [2.28] - 2026-02-02
+### Seguimiento Híbrido (Mejora de Precisión)
+- **Motor de Decisión**: Implementada lógica de envío dual (60 segundos **o** 15 metros).
+- **Cálculo Geodésico**: Integración de la Fórmula de Haversine (`distanceUtils.js`) para precisión métrica.
+- **Optimización de Batería**: El sistema ignora oscilaciones menores de 15m para evitar transmisiones espurias.
+- **Feedback Técnico**: Logs detallados que indican el motivo del envío ("Tiempo" vs "Movimiento").
 
 ## [2.27] - 2026-02-02
 ### Sincronización y Diagnóstico
