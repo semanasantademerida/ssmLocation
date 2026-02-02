@@ -1,3 +1,10 @@
+## [2.29] - 2026-02-02
+### Optimización Extrema de Batería (Throttling)
+- **Regulación de GPS**: Implementado un sistema de despertador cada 20 segundos para reducir la carga del procesador.
+- **Reducción de Latidos**: El motor nativo ahora solo procesa datos significativos cada 20s, manteniendo la precisión de 15m/60s.
+- **Limpieza de Logs**: Reducción del 90% del ruido en la consola de diagnóstico para un mantenimiento más sencillo.
+- **Estabilidad**: Corregida redundancia en las llamadas al sensor cuando el dispositivo está en movimiento lento.
+
 ## [2.28] - 2026-02-02
 ### Seguimiento Híbrido (Mejora de Precisión)
 - **Motor de Decisión**: Implementada lógica de envío dual (60 segundos **o** 15 metros).
