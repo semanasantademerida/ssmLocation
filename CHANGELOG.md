@@ -1,3 +1,9 @@
+## [2.33] - 2026-02-02
+### Nuevas Funcionalidades
+- **Telemetría de Batería**: Integración con `@capacitor/device` para enviar el porcentaje de batería en cada actualización de ubicación.
+- **Backend Actualizado**: Adaptado script `recibir_json.php` y esquema SQL para almacenar el nuevo dato.
+- **Documentación**: Añadida guía de actualización de servidor `SERVER_UPDATE_v2.33.md`.
+
 ## [2.32] - 2026-02-02
 ### Estabilidad y Caso Borde
 - **Auto-Reconexión Robusta**: Corregido fallo donde la app no reanudaba el envío tras un reinicio forzado.

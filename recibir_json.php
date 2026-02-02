@@ -61,6 +61,8 @@ try {
     $lat = $data['latitude'];
     $lon = $data['longitude'];
     $address = isset($data['address']) ? $data['address'] : "";
+    // [v2.33] Batería (puede ser null si es una versión antigua de la app)
+    $bateria = isset($data['bateria']) ? intval($data['bateria']) : null;
 
     // Fecha actual del servidor
     $fecha = date('Y-m-d H:i:s');
@@ -72,13 +74,12 @@ try {
     $stmt_del->close();
 
     // 2. Insertar nueva ubicación (Prepared Statement)
-    // Schema: id, now, lat, lng, address, hermandad
-    $stmt_ins = $conn->prepare("INSERT INTO location (id, now, lat, lng, address, hermandad) VALUES (?, ?, ?, ?, ?, ?)");
+    // Schema: id, now, lat, lng, address, hermandad, bateria
+    $stmt_ins = $conn->prepare("INSERT INTO location (id, now, lat, lng, address, hermandad, bateria) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-    // Asumiendo que la tabla tiene 6 columnas en ese orden específico.
-// Si la estructura es diferente, ajusta los nombres de columnas en el INSERT.
-// Tipos: s=string, d=double/float
-    $stmt_ins->bind_param("ssddss", $id_dispositivo, $fecha, $lat, $lon, $address, $hermandad);
+    // Asumiendo que se ha añadido la columna 'bateria' INT en la BD.
+    // Tipos: s=string, d=double/float, i=integer
+    $stmt_ins->bind_param("ssddssi", $id_dispositivo, $fecha, $lat, $lon, $address, $hermandad, $bateria);
 
     if ($stmt_ins->execute()) {
         echo json_encode([

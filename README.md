@@ -30,7 +30,7 @@ graph LR
 
 ## 📂 Estructura del Proyecto (Arquitectura Modular)
 
-La aplicación ha sido refactorizada y optimizada en la versión **2.32** siguiendo un diseño modular para facilitar su mantenimiento. Cada fichero incluye documentación detallada en español.
+La aplicación ha sido refactorizada y optimizada en la versión **2.33** siguiendo un diseño modular para facilitar su mantenimiento. Cada fichero incluye documentación detallada en español.
 
 ### 🧩 `/src/components` (Interfaz de Usuario)
 - `WelcomeScreen.jsx`: Pantalla inicial con el logotipo oficial y botón de acceso.
