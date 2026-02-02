@@ -2,16 +2,14 @@
 
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
-## [2.25] - En Desarrollo
-### Añadido
-- Sistema de variables de entorno (`.env`) para proteger la URL de la API y la Key.
-- Referencia externa para la configuración de la Base de Datos en el servidor (`config.php`).
-- Documentación mejorada en el `README.md` con diagramas de flujo.
-- Archivo `LICENSE` oficial (CC BY-SA).
-
-### Seguridad
-- Eliminadas credenciales de base de datos e historial de Git sensible.
-- Re-inicializado el repositorio para garantizar la privacidad del servidor.
+## [2.25b] - 2026-02-02
+### Refactorización y Branding
+- **Arquitectura Modular**: División de `App.jsx` en componentes y servicios especializados (`src/components`, `src/services`, `src/utils`).
+- **Documentación Total**: Cada archivo nuevo incluye una cabecera detallada en español explicando su función.
+- **Identidad Visual**: Integración definitiva del logotipo `appLogo.png`. Sin sombras redundantes.
+- **Optimización de Assets**: Logo movido a carpeta `public` para corrección de carga en APK.
+- **Seguridad**: Implementación de `.env` y limpieza de historial de Git (credenciales protegidas).
+- **Consolidación Estética**: Animaciones de entrada y diseño premium unificado.
 
 ## [2.24] - 2026-01-29
 ### Cambios

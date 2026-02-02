@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+/**
+ * SSM LOCATION - ESTILOS GLOBALES
+ * 
+ * Este archivo centraliza el diseño visual de la aplicación.
+ * Utiliza clases personalizadas sobre la base de Tailwind CSS (o estilos puros).
+ */
+
+body {
+    background-color: #f1f5f9;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tarjeta principal con efecto premium */
+.premium-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 2.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+}
+
+/* Animaciones de entrada */
+.animate-in {
+    animation-duration: 0.3s;
+    animation-fill-mode: both;
+}
+
+.fade-in {
+    animation-name: fadeIn;
+}
+
+.zoom-in-95 {
+    animation-name: zoomIn;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Botones con respuesta háptica visual */
+.btn-tracking {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-tracking:active {
+    transform: scale(0.94);
+}
+
+/* Insignias de estado animadas */
+.status-badge {
+    animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajustes para Leaflet nativo */
+.leaflet-container {
+    filter: saturate(1.2);
+    border-radius: 1rem;
+    z-index: 10;
+}
+
+/* Icono de marcador pulsante */
+@keyframes pulse-icon {
+    0% { transform: scale(1); opacity: 0.8; }
+    70% { transform: scale(3); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
