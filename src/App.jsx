@@ -6,7 +6,7 @@
  * Esta aplicación gestiona el seguimiento GPS en segundo plano de las 
  * Hermandades de la Semana Santa de Mérida.
  * 
- * Arquitectura: Modular v2.25
+ * Arquitectura: Modular v2.33
  * Autor: Rubén D. Mancera Morán
  * 
  * Este archivo coordina el estado global, los motores nativos de Capacitor
