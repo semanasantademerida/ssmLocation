@@ -12,6 +12,7 @@
     "@capacitor/android": "^7.0.0",
     "@capacitor/app": "^7.1.1",
     "@capacitor/core": "^7.0.0",
+    "@capacitor/device": "^7.0.3",
     "@capacitor/geolocation": "^7.0.0",
     "lucide-react": "^0.263.1",
     "react": "^18.2.0",

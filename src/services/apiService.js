@@ -13,6 +13,7 @@
  */
 
 import { CapacitorHttp } from '@capacitor/core';
+import { Device } from '@capacitor/device'; // v2.33: Telemetría de batería
 import { obtenerIdDispositivo } from '../utils/deviceUtils';
 
 // Variables de entorno (definidas en .env)
@@ -68,6 +69,16 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
     const dispositivoId = obtenerIdDispositivo();
     const ahora = new Date().toLocaleTimeString();
 
+    // v2.33: Obtener nivel de batería antes de enviar
+    let bateriaNivel = 0;
+    try {
+        const info = await Device.getBatteryInfo();
+        // info.batteryLevel devuelve de 0 a 1. Lo pasamos a porcentaje entero (ej: 95)
+        bateriaNivel = Math.round((info.batteryLevel || 0) * 100);
+    } catch (e) {
+        console.warn('Error leyendo batería:', e);
+    }
+
     try {
         const payload = {
             key: API_KEY,
@@ -75,7 +86,8 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
             hermandad: hermandadCodigo,
             latitude: latitude,
             longitude: longitude,
-            address: direccion
+            address: direccion,
+            bateria: bateriaNivel // Nuevo campo v2.33
         };
 
         const opciones = {
