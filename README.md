@@ -9,6 +9,17 @@ Aplicación móvil híbrida desarrollada con **React**, **Capacitor** y **Vite**
 - **Interfaz Premium**: Diseño moderno optimizado para su uso en exteriores.
 - **Bajo Consumo**: Optimizado para minimizar el impacto en la batería del dispositivo.
 
+## 🗺️ Funcionamiento del Sistema
+
+```mermaid
+graph LR
+    A[App React] -->|Capacitor Plugin| B(Background Geolocation)
+    B -->|Cada 60s / Movimiento| C[Capacitor HTTP]
+    C -->|POST + API Key| D[recibir_json.php]
+    D -->|SQL| E[(Base de Datos MySQL)]
+    D -.->|Reverse Geocoding| F[OpenStreetMap]
+```
+
 ## 🛠️ Tecnologías
 
 - **Frontend**: React.js + Vite.
