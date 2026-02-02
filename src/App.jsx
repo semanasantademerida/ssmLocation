@@ -703,15 +703,14 @@ export default function SSMLocationApp() {
             <img
               src="appLogo.png"
               alt="SSM Location Logo"
-              className="w-48 h-48 mx-auto mb-6 drop-shadow-xl animate-in fade-in zoom-in duration-700"
+              className="w-48 h-48 mx-auto mb-6 animate-in fade-in zoom-in duration-700"
             />
             <h1 className="text-4xl font-bold text-red-600 mb-2">Semana Santa de Mérida</h1>
-            <p className="text-2xl text-red-500">SSM Location</p>
           </div>
 
           <button
             onClick={() => setPantalla('tracking')}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all transform hover:scale-105 shadow-lg"
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-2xl text-lg transition-all transform hover:scale-105 shadow-lg shadow-red-100"
           >
             Continuar
           </button>
