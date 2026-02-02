@@ -16,6 +16,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { registerPlugin } from '@capacitor/core';
 import { Geolocation } from '@capacitor/geolocation';
+import { App } from '@capacitor/app';
 
 // --- SERVICIOS Y UTILIDADES ---
 import { HERMANDADES, VERSION_APP, INTERVALO_ENVIO_MS } from './utils/constants';
@@ -68,6 +69,18 @@ function SSMLocationApp() {
    * EFECTO DE INICIALIZACIÓN: Recupera estados persistidos al abrir la app.
    */
   useEffect(() => {
+    // Cargar Leaflet dinámicamente si no está presente
+    if (!window.L) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      document.head.appendChild(link);
+
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      document.head.appendChild(script);
+    }
+
     const recuperado = localStorage.getItem('ssm_tracking_state');
     const logsGuardados = localStorage.getItem('ssm_logs');
 
@@ -80,6 +93,17 @@ function SSMLocationApp() {
       // Si el estado dice que estaba rastreando, intentamos reconectar
       if (estado.activo) iniciarRastreo(true);
     }
+
+    // Listener de estado nativo
+    const handler = App.addListener('appStateChange', ({ isActive }) => {
+      if (isActive) {
+        agregarLog(`📱 Aplicación reactivada (Resumed)`);
+      }
+    });
+
+    return () => {
+      handler.then(h => h.remove());
+    };
   }, []);
 
   // --- FUNCIONES DE LOGS ---
@@ -128,7 +152,7 @@ function SSMLocationApp() {
       const resultado = await enviarUbicacionAlServidor(latitude, longitude, codigoH, direccion);
 
       setConsultasEnviadas(prev => [resultado, ...prev].slice(0, 20));
-      if (resultado.exito) setUltimaHoraConexion(resultado.hora);
+      if (resultado.exito) setUltimaHoraConexion(resultado.time);
 
       // Actualizar Mapa Visual si existe
       if (mapaRef.current) {

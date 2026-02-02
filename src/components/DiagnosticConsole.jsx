@@ -69,8 +69,8 @@ const DiagnosticConsole = ({ logs, consultas, alCopiar, alLimpiar }) => {
                                     <span className="text-[9px] font-bold text-slate-400">
                                         {q.time}
                                     </span>
-                                    <span className={`text-[9px] font-black uppercase ${q.status.includes('✓') ? 'text-emerald-500' : 'text-red-500'}`}>
-                                        {q.status}
+                                    <span className={`text-[9px] font-black uppercase ${q?.status?.includes?.('✓') ? 'text-emerald-500' : 'text-red-500'}`}>
+                                        {q?.status || 'Error'}
                                     </span>
                                 </div>
                                 <code className="text-[9px] text-slate-400 break-all block font-mono bg-slate-50 p-2 rounded-lg border border-slate-100">
