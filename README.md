@@ -4,10 +4,10 @@ Aplicación móvil híbrida desarrollada con **React**, **Capacitor** y **Vite**
 
 ## 🚀 Características Principales
 
-- **Tracking en Segundo Plano**: Utiliza procesos nativos de Android para seguir enviando la ubicación incluso con la pantalla bloqueada o la app minimizada.
-- **Geococing Inverso**: Convierte coordenadas GPS en direcciones legibles (Calles/Números) en tiempo real.
-- **Interfaz Premium**: Diseño moderno optimizado para su uso en exteriores.
-- **Bajo Consumo**: Optimizado para minimizar el impacto en la batería del dispositivo.
+- **Tracking Híbrido Inteligente**: Envía la ubicación automáticamente si han pasado **60 segundos** o si el dispositivo se ha desplazado más de **15 metros** (vía Fórmula de Haversine).
+- **Geocoding Inverso**: Convierte coordenadas GPS en direcciones legibles (Calles/Números) en tiempo real.
+- **Interfaz Premium**: Diseño moderno optimizado para su uso en exteriores con soporte Leaflet.
+- **Bajo Consumo**: Optimizado para minimizar el impacto en la batería, ignorando el "ruido" sutil del GPS.
 
 ## 📱 Interfaz de la Aplicación
 
@@ -50,6 +50,7 @@ La aplicación ha sido refactorizada en la versión **2.25b** siguiendo un dise�
 ### 🛠️ `/src/utils` (Configuración y Utilidades)
 - `constants.js`: Listado oficial de Hermandades, versiones y tiempos de intervalo.
 - `deviceUtils.js`: Gestión de la identidad única del dispositivo móvil.
+- `distanceUtils.js`: Cálculos matemáticos geodésicos (Haversine) para el seguimiento híbrido.
 
 ### 🏠 Raíz de Código
 - `App.jsx`: Orquestador central que gestiona el estado global y los servicios.
