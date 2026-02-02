@@ -15,9 +15,17 @@
  * @param {Function} props.alLimpiar - Función para resetear logs.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const DiagnosticConsole = ({ logs, consultas, alCopiar, alLimpiar }) => {
+    const [copiado, setCopiado] = useState(false);
+
+    const manejarCopia = () => {
+        alCopiar();
+        setCopiado(true);
+        setTimeout(() => setCopiado(false), 2000);
+    };
+
     return (
         <div className="space-y-8 mt-4">
             {/* TERMINAL DE LOGS DE SISTEMA */}
@@ -28,10 +36,10 @@ const DiagnosticConsole = ({ logs, consultas, alCopiar, alLimpiar }) => {
                     </p>
                     <div className="flex gap-4">
                         <button
-                            onClick={alCopiar}
-                            className="text-[9px] text-emerald-600 font-bold uppercase transition-colors hover:text-emerald-700"
+                            onClick={manejarCopia}
+                            className={`text-[9px] font-bold uppercase transition-all ${copiado ? 'text-emerald-400 scale-110' : 'text-emerald-600 hover:text-emerald-700'}`}
                         >
-                            Copiar
+                            {copiado ? '¡Copiado!' : 'Copiar'}
                         </button>
                         <button
                             onClick={alLimpiar}
