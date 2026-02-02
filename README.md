@@ -9,6 +9,15 @@ Aplicación móvil híbrida desarrollada con **React**, **Capacitor** y **Vite**
 - **Interfaz Premium**: Diseño moderno optimizado para su uso en exteriores.
 - **Bajo Consumo**: Optimizado para minimizar el impacto en la batería del dispositivo.
 
+## 📱 Interfaz de la Aplicación
+
+<p align="center">
+  <img src="screenshots/capture1.jpeg" width="200" alt="Pantalla 1" />
+  <img src="screenshots/capture2.jpeg" width="200" alt="Pantalla 2" />
+  <img src="screenshots/capture3.jpeg" width="200" alt="Pantalla 3" />
+  <img src="screenshots/capture4.jpeg" width="200" alt="Pantalla 4" />
+</p>
+
 ## 🗺️ Funcionamiento del Sistema
 
 ```mermaid
