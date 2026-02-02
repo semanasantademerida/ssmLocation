@@ -1,0 +1,8 @@
+{
+  "appId": "es.semanasanta.merida.location",
+  "appName": "SSM Location",
+  "webDir": "dist",
+  "android": {
+    "useLegacyBridge": true
+  }
+}
