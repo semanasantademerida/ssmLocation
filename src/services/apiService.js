@@ -64,12 +64,12 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
 
     try {
         const payload = {
-            id_dispositivo: dispositivoId,
-            latitud: latitude,
-            longitud: longitude,
+            key: API_KEY, // Debe ser 'secret' según el backup
+            device_id: dispositivoId,
             hermandad: hermandadCodigo,
-            direccion: direccion,
-            api_key: API_KEY
+            latitude: latitude,
+            longitude: longitude,
+            address: direccion
         };
 
         const opciones = {
@@ -80,12 +80,12 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
 
         const respuesta = await CapacitorHttp.post(opciones);
 
-        if (respuesta.status === 200) {
+        if (respuesta.status >= 200 && respuesta.status < 300) {
             return {
                 exito: true,
-                mensaje: '✓ Envío exitoso',
-                sql: `UPDATE ubicacion SET lat=${latitude.toFixed(5)}, lon=${longitude.toFixed(5)} WHERE id='${hermandadCodigo}'`,
-                hora: ahora
+                status: '✓ OK',
+                sql: JSON.stringify(payload), // Mostramos el JSON enviado para diagnóstico
+                time: ahora
             };
         } else {
             throw new Error(`Servidor respondió con código ${respuesta.status}`);
@@ -94,9 +94,9 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
         console.error('Error enviando a servidor:', error);
         return {
             exito: false,
-            mensaje: `❌ Error: ${error.message}`,
-            sql: 'Fallo de conexión o API Key inválida',
-            hora: ahora
+            status: '❌ FALLO',
+            sql: error.message || 'Error de conexión',
+            time: ahora
         };
     }
 };
