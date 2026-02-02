@@ -19,7 +19,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { App } from '@capacitor/app';
 
 // --- SERVICIOS Y UTILIDADES ---
-import { HERMANDADES, VERSION_APP, INTERVALO_ENVIO_MS, UMBRAL_DISTANCIA_METROS } from './utils/constants';
+import { HERMANDADES, VERSION_APP, INTERVALO_ENVIO_MS, INTERVALO_CHEQUEO_GPS_MS, UMBRAL_DISTANCIA_METROS } from './utils/constants';
 import { obtenerIdDispositivo } from './utils/deviceUtils';
 import { calcularDistanciaMetros } from './utils/distanceUtils';
 import { obtenerDireccionDesdeCoordenadas, enviarUbicacionAlServidor } from './services/apiService';
@@ -60,6 +60,7 @@ function SSMLocationApp() {
   const hermandadSeleccionadaRef = useRef('');
   const mapaRef = useRef(null);
   const timestampUltimaActualizacionRef = useRef(0);
+  const timestampUltimoChequeoGPSRef = useRef(0); // v2.29: Control de latido cada 20s
   const ultimaPosEnviadaRef = useRef(null); // v2.28: Persistencia de última posición para cálculo de 15m
   const estaProcesandoRef = useRef(false);
 
@@ -207,7 +208,15 @@ function SSMLocationApp() {
           if (err || !ubi || !estaRastreandoRef.current) return;
 
           const ahora = Date.now();
-          const transcurrido = ahora - timestampUltimaActualizacionRef.current;
+          const transcurridoEnvio = ahora - timestampUltimaActualizacionRef.current;
+          const transcurridoChequeo = ahora - timestampUltimoChequeoGPSRef.current;
+
+          // REGULACIÓN (Throttling) v2.29: Solo procesamos si han pasado 20s o es el primer latido
+          if (transcurridoChequeo < INTERVALO_CHEQUEO_GPS_MS && timestampUltimoChequeoGPSRef.current !== 0) {
+            return;
+          }
+
+          timestampUltimoChequeoGPSRef.current = ahora;
 
           // Cálculo de distancia recorrida (v2.28)
           let distanciaRecorrida = 0;
@@ -220,13 +229,11 @@ function SSMLocationApp() {
             );
           }
 
-          // Log de latido GPS (cada 10s o si hay movimiento relevante)
-          if (transcurrido >= 10000 || distanciaRecorrida >= 5 || timestampUltimaActualizacionRef.current === 0) {
-            agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}${distanciaRecorrida > 0 ? ` (+${distanciaRecorrida}m)` : ''}`);
-          }
+          // Log de latido GPS (Ahora será exactamente cada 20s)
+          agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}${distanciaRecorrida > 0 ? ` (+${distanciaRecorrida}m)` : ''}`);
 
           // LÓGICA HÍBRIDA: Tiempo (60s) O Distancia (15m)
-          const tocaPorTiempo = transcurrido >= INTERVALO_ENVIO_MS;
+          const tocaPorTiempo = transcurridoEnvio >= INTERVALO_ENVIO_MS;
           const tocaPorDistancia = distanciaRecorrida >= UMBRAL_DISTANCIA_METROS;
 
           if (tocaPorTiempo || tocaPorDistancia || timestampUltimaActualizacionRef.current === 0) {
@@ -237,7 +244,7 @@ function SSMLocationApp() {
             agregarLog(`⚡ Disparando envío: ${motivo}`);
             await procesarUbicacion(ubi);
           } else {
-            setProximaActualizacionEn(Math.max(0, Math.ceil((INTERVALO_ENVIO_MS - transcurrido) / 1000)));
+            setProximaActualizacionEn(Math.max(0, Math.ceil((INTERVALO_ENVIO_MS - transcurridoEnvio) / 1000)));
           }
         }
       );

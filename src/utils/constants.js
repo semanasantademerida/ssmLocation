@@ -6,10 +6,11 @@
  * sin tener que buscar entre el código lógico.
  */
 
-export const VERSION_APP = '2.28';
+export const VERSION_APP = '2.29';
 
 // Intervalos de tiempo
 export const INTERVALO_ENVIO_MS = 60000; // 60 segundos entre envíos a servidor
+export const INTERVALO_CHEQUEO_GPS_MS = 20000; // 20 segundos entre comprobaciones (v2.29)
 export const INTERVALO_CONTEO_MS = 1000;  // 1 segundo para la actualización visual
 export const UMBRAL_DISTANCIA_METROS = 15; // 15 metros para disparo por movimiento
 
