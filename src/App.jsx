@@ -19,8 +19,9 @@ import { Geolocation } from '@capacitor/geolocation';
 import { App } from '@capacitor/app';
 
 // --- SERVICIOS Y UTILIDADES ---
-import { HERMANDADES, VERSION_APP, INTERVALO_ENVIO_MS } from './utils/constants';
+import { HERMANDADES, VERSION_APP, INTERVALO_ENVIO_MS, UMBRAL_DISTANCIA_METROS } from './utils/constants';
 import { obtenerIdDispositivo } from './utils/deviceUtils';
+import { calcularDistanciaMetros } from './utils/distanceUtils';
 import { obtenerDireccionDesdeCoordenadas, enviarUbicacionAlServidor } from './services/apiService';
 import { inicializarMapa, actualizarMarcadorMapa } from './services/mapService';
 
@@ -59,6 +60,7 @@ function SSMLocationApp() {
   const hermandadSeleccionadaRef = useRef('');
   const mapaRef = useRef(null);
   const timestampUltimaActualizacionRef = useRef(0);
+  const ultimaPosEnviadaRef = useRef(null); // v2.28: Persistencia de última posición para cálculo de 15m
   const estaProcesandoRef = useRef(false);
 
   // Sincronizar referencias con estados reactivos
@@ -207,14 +209,32 @@ function SSMLocationApp() {
           const ahora = Date.now();
           const transcurrido = ahora - timestampUltimaActualizacionRef.current;
 
-          // Log de latido GPS (cada vez que el sensor responde, aunque no toque enviar aún)
-          if (transcurrido >= 10000 || timestampUltimaActualizacionRef.current === 0) {
-            agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}`);
+          // Cálculo de distancia recorrida (v2.28)
+          let distanciaRecorrida = 0;
+          if (ultimaPosEnviadaRef.current) {
+            distanciaRecorrida = calcularDistanciaMetros(
+              ultimaPosEnviadaRef.current.latitude,
+              ultimaPosEnviadaRef.current.longitude,
+              ubi.latitude,
+              ubi.longitude
+            );
           }
 
-          if (transcurrido >= INTERVALO_ENVIO_MS || timestampUltimaActualizacionRef.current === 0) {
+          // Log de latido GPS (cada 10s o si hay movimiento relevante)
+          if (transcurrido >= 10000 || distanciaRecorrida >= 5 || timestampUltimaActualizacionRef.current === 0) {
+            agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}${distanciaRecorrida > 0 ? ` (+${distanciaRecorrida}m)` : ''}`);
+          }
+
+          // LÓGICA HÍBRIDA: Tiempo (60s) O Distancia (15m)
+          const tocaPorTiempo = transcurrido >= INTERVALO_ENVIO_MS;
+          const tocaPorDistancia = distanciaRecorrida >= UMBRAL_DISTANCIA_METROS;
+
+          if (tocaPorTiempo || tocaPorDistancia || timestampUltimaActualizacionRef.current === 0) {
+            const motivo = tocaPorDistancia ? `Movimiento (${distanciaRecorrida}m)` : 'Tiempo (60s)';
             timestampUltimaActualizacionRef.current = ahora;
-            agregarLog(`⚡ Disparando envío (Programado)`);
+            ultimaPosEnviadaRef.current = ubi;
+
+            agregarLog(`⚡ Disparando envío: ${motivo}`);
             await procesarUbicacion(ubi);
           } else {
             setProximaActualizacionEn(Math.max(0, Math.ceil((INTERVALO_ENVIO_MS - transcurrido) / 1000)));
