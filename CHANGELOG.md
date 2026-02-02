@@ -1,3 +1,9 @@
+## [2.32] - 2026-02-02
+### Estabilidad y Caso Borde
+- **Auto-Reconexión Robusta**: Corregido fallo donde la app no reanudaba el envío tras un reinicio forzado.
+- **Persistencia de Estado**: Implementado mecanismo de lectura directa de `localStorage` para recuperar la hermandad activa antes de que React hidrate el estado.
+- **Sincronización v2.32**: Versión unificada en código, UI y nativo.
+
 ## [2.31] - 2026-02-02
 ### Usabilidad y Feedback Visual
 - **Feedback de Copiado**: Implementado estado de éxito interactivo en el botón de copiar. Cambia a "¡Copiado!" durante 2 segundos con efecto de escala.
