@@ -28,6 +28,34 @@ graph LR
     D -.->|Reverse Geocoding| F[OpenStreetMap]
 ```
 
+## 📂 Estructura del Proyecto (Arquitectura Modular)
+
+La aplicación ha sido refactorizada en la versión **2.25b** siguiendo un diseño modular para facilitar su mantenimiento. Cada fichero incluye documentación detallada en español.
+
+### 🧩 `/src/components` (Interfaz de Usuario)
+- `WelcomeScreen.jsx`: Pantalla inicial con el logotipo oficial y botón de acceso.
+- `TrackingHeader.jsx`: Cabecera compacta con estado "En Vivo" y acceso a diagnóstico.
+- `MapDisplay.jsx`: Renderizador del mapa Leaflet y visualización de dirección física.
+- `HermandadSelector.jsx`: Selector de cofradías con bloqueo durante el rastreo.
+- `ControlButtons.jsx`: Botones de Iniciar/Detener seguimiento GPS.
+- `StatsGrid.jsx`: Contadores de tiempo y hora del último envío.
+- `StatusBanner.jsx`: Mensajes dinámicos del sistema y modo de transmisión.
+- `DiagnosticConsole.jsx`: Terminal técnica con logs de sistema e historial HTTP.
+- `DiagnosticModal.jsx`: Guía visual para la configuración de permisos nativos.
+
+### ⚙️ `/src/services` (Lógica de Negocio)
+- `apiService.js`: Gestión de peticiones HTTP, seguridad y Reverse Geocoding.
+- `mapService.js`: Control del ciclo de vida de Leaflet y marcadores animados.
+
+### 🛠️ `/src/utils` (Configuración y Utilidades)
+- `constants.js`: Listado oficial de Hermandades, versiones y tiempos de intervalo.
+- `deviceUtils.js`: Gestión de la identidad única del dispositivo móvil.
+
+### 🏠 Raíz de Código
+- `App.jsx`: Orquestador central que gestiona el estado global y los servicios.
+- `index.css`: Sistema de estilos premium y animaciones unificadas.
+
+
 ## 🛠️ Tecnologías
 
 - **Frontend**: React.js + Vite.
