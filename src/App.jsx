@@ -152,7 +152,12 @@ function SSMLocationApp() {
       const resultado = await enviarUbicacionAlServidor(latitude, longitude, codigoH, direccion);
 
       setConsultasEnviadas(prev => [resultado, ...prev].slice(0, 20));
-      if (resultado.exito) setUltimaHoraConexion(resultado.time);
+      if (resultado.exito) {
+        setUltimaHoraConexion(resultado.time);
+        agregarLog(`✓ Envío OK: ${resultado.status}`);
+      } else {
+        agregarLog(`⚠ Fallo envío: ${resultado.status}`);
+      }
 
       // Actualizar Mapa Visual si existe
       if (mapaRef.current) {
@@ -202,9 +207,14 @@ function SSMLocationApp() {
           const ahora = Date.now();
           const transcurrido = ahora - timestampUltimaActualizacionRef.current;
 
+          // Log de latido GPS (cada vez que el sensor responde, aunque no toque enviar aún)
+          if (transcurrido >= 10000 || timestampUltimaActualizacionRef.current === 0) {
+            agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}`);
+          }
+
           if (transcurrido >= INTERVALO_ENVIO_MS || timestampUltimaActualizacionRef.current === 0) {
             timestampUltimaActualizacionRef.current = ahora;
-            agregarLog(`⚡ Envío programado: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}`);
+            agregarLog(`⚡ Disparando envío (Programado)`);
             await procesarUbicacion(ubi);
           } else {
             setProximaActualizacionEn(Math.max(0, Math.ceil((INTERVALO_ENVIO_MS - transcurrido) / 1000)));
