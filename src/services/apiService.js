@@ -33,14 +33,20 @@ export const obtenerDireccionDesdeCoordenadas = async (latitude, longitude) => {
 
         const respuesta = await CapacitorHttp.get({
             url: url,
-            headers: { 'Accept-Language': 'es' }
+            headers: {
+                'Accept-Language': 'es',
+                'User-Agent': 'SSM Location App v2.27'
+            }
         });
 
-        if (respuesta.data && respuesta.data.address) {
-            const a = respuesta.data.address;
-            const calle = a.road || a.pedestrian || a.suburb || '';
-            const numero = a.house_number ? `, ${a.house_number}` : '';
-            return calle ? `${calle}${numero}` : 'Sin nombre de calle';
+        if (respuesta.data) {
+            if (respuesta.data.address) {
+                const a = respuesta.data.address;
+                const calle = a.road || a.pedestrian || a.suburb || a.city || '';
+                const numero = a.house_number ? `, ${a.house_number}` : '';
+                if (calle) return `${calle}${numero}`;
+            }
+            return respuesta.data.display_name || 'Ubicación detectada';
         }
         return 'Dirección no encontrada';
     } catch (error) {
@@ -64,7 +70,7 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
 
     try {
         const payload = {
-            key: API_KEY, // Debe ser 'secret' según el backup
+            key: API_KEY,
             device_id: dispositivoId,
             hermandad: hermandadCodigo,
             latitude: latitude,
@@ -83,18 +89,18 @@ export const enviarUbicacionAlServidor = async (latitude, longitude, hermandadCo
         if (respuesta.status >= 200 && respuesta.status < 300) {
             return {
                 exito: true,
-                status: '✓ OK',
-                sql: JSON.stringify(payload), // Mostramos el JSON enviado para diagnóstico
+                status: `${respuesta.status} OK`,
+                sql: JSON.stringify(payload),
                 time: ahora
             };
         } else {
-            throw new Error(`Servidor respondió con código ${respuesta.status}`);
+            throw new Error(`Error ${respuesta.status}`);
         }
     } catch (error) {
         console.error('Error enviando a servidor:', error);
         return {
             exito: false,
-            status: '❌ FALLO',
+            status: error.message.includes('Error') ? error.message : 'Fallo Red',
             sql: error.message || 'Error de conexión',
             time: ahora
         };

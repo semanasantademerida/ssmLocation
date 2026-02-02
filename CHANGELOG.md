@@ -2,6 +2,13 @@
 
 Todos los cambios notables en este proyecto serán documentados en este archivo.
 
+## [2.27] - 2026-02-02
+### Sincronización y Diagnóstico
+- **Versión Nativa**: Actualizado `build.gradle` para reflejar la versión correcta en el análisis de seguridad de Android.
+- **Geocoding Fix**: Restaurado `User-Agent` obligatorio para la API de Nominatim. Soluciona el error "Dirección no encontrada".
+- **Logs Técnicos**: Incrementada la verbosidad en la consola. Ahora muestra latidos de "GPS Nativo" y estados HTTP detallados (ej: `200 OK`).
+- **Resiliencia**: Implementado fallback a `display_name` si la dirección estructurada no está disponible.
+
 ## [2.25b] - 2026-02-02
 ### Refactorización y Branding
 - **Arquitectura Modular**: División de `App.jsx` en componentes y servicios especializados (`src/components`, `src/services`, `src/utils`).
