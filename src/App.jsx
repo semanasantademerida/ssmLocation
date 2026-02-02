@@ -196,7 +196,16 @@ function SSMLocationApp() {
    * MOTOR DE RASTREO: Control de inicio y parada nativos.
    */
   const iniciarRastreo = async (esReconexion = false) => {
-    const hNombre = esReconexion ? hermandadSeleccionadaRef.current : hermandadSeleccionada;
+    let hNombre = esReconexion ? hermandadSeleccionadaRef.current : hermandadSeleccionada;
+
+    // Fallback para reconexión: Si el ref aún no se ha sincronizado, leemos de storage
+    if (esReconexion && !hNombre) {
+      const backup = localStorage.getItem('ssm_tracking_state');
+      if (backup) {
+        hNombre = JSON.parse(backup).hermandad;
+      }
+    }
+
     if (!hNombre) return;
 
     try {
