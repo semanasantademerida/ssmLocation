@@ -109,6 +109,21 @@ function SSMLocationApp() {
     };
   }, []);
 
+  /**
+   * EFECTO DE CONTADOR FLUIDO: Independiente del sensor GPS.
+   */
+  useEffect(() => {
+    let intervalo;
+    if (estaRastreando) {
+      intervalo = setInterval(() => {
+        setProximaActualizacionEn(prev => (prev > 0 ? prev - 1 : 0));
+      }, 1000);
+    }
+    return () => {
+      if (intervalo) clearInterval(intervalo);
+    };
+  }, [estaRastreando]);
+
   // --- FUNCIONES DE LOGS ---
   const agregarLog = (msg) => {
     const nuevoLog = `[${new Date().toLocaleTimeString()}] ${msg}`;
@@ -144,7 +159,6 @@ function SSMLocationApp() {
 
       if (latitude === undefined || longitude === undefined) return;
 
-      setProximaActualizacionEn(60);
       const codigoH = HERMANDADES.find(h => h.nombre === hermandadSeleccionadaRef.current)?.codigo || 'otros';
 
       setMensajeEstado('🌍 Buscando dirección...');
@@ -198,7 +212,7 @@ function SSMLocationApp() {
 
       const id = await BackgroundGeolocation.addWatcher(
         {
-          backgroundMessage: "Seguimiento en tiempo real activo (v2.25)",
+          backgroundMessage: `Seguimiento en tiempo real activo (v${VERSION_APP})`,
           backgroundTitle: "SSM Location",
           requestPermissions: true,
           stale: false,
@@ -242,9 +256,8 @@ function SSMLocationApp() {
             ultimaPosEnviadaRef.current = ubi;
 
             agregarLog(`⚡ Disparando envío: ${motivo}`);
+            setProximaActualizacionEn(60); // Resetear contador al disparar envío
             await procesarUbicacion(ubi);
-          } else {
-            setProximaActualizacionEn(Math.max(0, Math.ceil((INTERVALO_ENVIO_MS - transcurridoEnvio) / 1000)));
           }
         }
       );
@@ -276,7 +289,7 @@ function SSMLocationApp() {
 
   // --- RENDERIZADO ---
   if (pantalla === 'welcome') {
-    return <WelcomeScreen alContinuar={() => setPantalla('tracking')} />;
+    return <WelcomeScreen alContinuar={() => setPantalla('tracking')} version={VERSION_APP} />;
   }
 
   return (
