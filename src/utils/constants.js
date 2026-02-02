@@ -6,7 +6,7 @@
  * sin tener que buscar entre el código lógico.
  */
 
-export const VERSION_APP = '2.30';
+export const VERSION_APP = '2.31';
 
 // Intervalos de tiempo
 export const INTERVALO_ENVIO_MS = 60000; // 60 segundos entre envíos a servidor
