@@ -1,3 +1,10 @@
+## [2.30] - 2026-02-02
+### Experiencia de Usuario y Pulido Visual
+- **Cronómetro Fluido**: Implementado temporizador independiente del GPS para una cuenta atrás segundo a segundo constante.
+- **Versión Dinámica**: La pantalla de bienvenida ahora muestra la versión real de la aplicación de forma automatizada.
+- **Identidad Nativa**: Actualizado el mensaje de notificación persistente de Android con la versión correcta.
+- **Sincronización**: Alineación de versiones nativas (Gradle) y lógicas (JS) para coherencia en el análisis de seguridad.
+
 ## [2.29] - 2026-02-02
 ### Optimización Extrema de Batería (Throttling)
 - **Regulación de GPS**: Implementado un sistema de despertador cada 20 segundos para reducir la carga del procesador.
