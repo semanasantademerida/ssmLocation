@@ -65,6 +65,7 @@ La aplicación ha sido refactorizada y optimizada en la versión **2.33** siguie
   - `@capacitor-community/background-geolocation`: Motor del servicio en segundo plano.
   - `@capacitor/geolocation`: Posicionamiento estándar.
   - `@capacitor/core`: Comunicación nativa.
+  - `@capacitor/device`: Telemetría de sistema (Batería).
 
 ## ⚙️ Configuración Requerida (Variables de Entorno)
 
