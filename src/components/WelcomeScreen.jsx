@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-const WelcomeScreen = ({ alContinuar }) => {
+const WelcomeScreen = ({ alContinuar, version }) => {
     return (
         <div className="min-h-screen bg-white flex items-center justify-center p-6 text-center">
             <div className="max-w-xs w-full">
@@ -37,7 +37,7 @@ const WelcomeScreen = ({ alContinuar }) => {
                 </button>
 
                 <p className="mt-8 text-slate-300 text-[10px] font-bold uppercase tracking-widest">
-                    v2.25 - Sistema de Seguimiento en Tiempo Real
+                    v{version} - Sistema de Seguimiento en Tiempo Real
                 </p>
             </div>
         </div>
