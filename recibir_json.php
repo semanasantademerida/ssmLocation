@@ -56,9 +56,7 @@ $conn->set_charset("utf8mb4");
 
 try {
     // Datos recibidos
-// Nota: El ID "123456" estaba hardcodeado en la app original.
-// Si necesitas un ID único por dispositivo, deberías enviarlo desde la app.
-    $id_dispositivo = isset($data['device_id']) ? $data['device_id'] : "123456";
+    $id_dispositivo = isset($data['device_id']) ? $data['device_id'] : "unknown";
     $hermandad = $data['hermandad'];
     $lat = $data['latitude'];
     $lon = $data['longitude'];
