@@ -700,7 +700,11 @@ export default function SSMLocationApp() {
       <div className="min-h-screen bg-white flex items-center justify-center p-6">
         <div className="text-center">
           <div className="mb-8">
-            <MapPin className="w-24 h-24 text-red-600 mx-auto mb-4" />
+            <img
+              src="appLogo.png"
+              alt="SSM Location Logo"
+              className="w-48 h-48 mx-auto mb-6 drop-shadow-xl animate-in fade-in zoom-in duration-700"
+            />
             <h1 className="text-4xl font-bold text-red-600 mb-2">Semana Santa de Mérida</h1>
             <p className="text-2xl text-red-500">SSM Location</p>
           </div>
@@ -725,9 +729,14 @@ export default function SSMLocationApp() {
         {mostrarDiagnostico && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
             <div className="bg-white rounded-3xl w-full max-w-sm shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
-              <div className="bg-red-600 p-6 text-white">
-                <div className="flex items-center gap-3 mb-2">
-                  <ShieldCheck className="w-8 h-8" />
+              <div className="bg-red-600 p-6 text-white text-center">
+                <img
+                  src="appLogo.png"
+                  alt="Logo"
+                  className="w-16 h-16 mx-auto mb-4 brightness-0 invert opacity-90"
+                />
+                <div className="flex items-center justify-center gap-3 mb-2">
+                  <ShieldCheck className="w-6 h-6" />
                   <h3 className="text-xl font-bold">Guía de Segundo Plano</h3>
                 </div>
                 <p className="text-red-100 text-xs leading-relaxed">
@@ -772,11 +781,10 @@ export default function SSMLocationApp() {
           <div className="absolute -top-24 -right-24 w-48 h-48 bg-red-500/10 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-red-600/5 rounded-full blur-3xl"></div>
 
-          {/* Cabecera */}
           <div className="flex items-center justify-between mb-8 relative z-10">
             <div className="flex items-center gap-4">
-              <div className="p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-200">
-                <MapPin className="text-white w-6 h-6" />
+              <div className="p-1 bg-white rounded-2xl shadow-lg border border-slate-100">
+                <img src="appLogo.png" alt="Logo" className="w-10 h-10 object-contain" />
               </div>
               <div>
                 <h1 className="text-2xl font-black text-slate-800 tracking-tight leading-none mb-1">SSM Location</h1>
