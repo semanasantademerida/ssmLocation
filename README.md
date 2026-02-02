@@ -18,6 +18,29 @@ Aplicación móvil híbrida desarrollada con **React**, **Capacitor** y **Vite**
   - `@capacitor/geolocation`: Posicionamiento estándar.
   - `@capacitor/core`: Comunicación nativa.
 
+## ⚙️ Configuración Requerida (Variables de Entorno)
+
+Para que la aplicación pueda comunicarse con el servidor y la base de datos, debes crear manualmente los siguientes archivos (excluidos de Git por seguridad):
+
+### 1. Aplicación Frontend (`.env`)
+En el directorio raíz, crea un archivo llamado `.env` basado en `.env.example`:
+```env
+VITE_API_URL=http://tu-servidor.com/recibir_json.php
+VITE_API_KEY=tu_clave_secreta
+```
+
+### 2. Backend PHP (`config.php`)
+En el directorio raíz (para subirlo a tu servidor), crea un archivo llamado `config.php`:
+```php
+<?php
+$DB_ADDRESS = 'localhost:3306';
+$DB_USER = 'tu_usuario';
+$DB_PASS = 'tu_contraseña';
+$DB_NAME = 'tu_base_de_datos';
+$APP_SECRET = 'tu_clave_secreta'; // Debe coincidir con VITE_API_KEY
+?>
+```
+
 ## 📦 Instalación y Desarrollo
 
 Para trabajar en este proyecto localmente:
