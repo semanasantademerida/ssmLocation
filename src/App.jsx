@@ -48,7 +48,7 @@ function SSMLocationApp() {
 
   // Datos de telemetría y UI
   const [ultimaUbicacion, setUltimaUbicacion] = useState(null);
-  const [proximaActualizacionEn, setProximaActualizacionEn] = useState(60);
+  const [proximaActualizacionEn, setProximaActualizacionEn] = useState(INTERVALO_ENVIO_MS / 1000);
   const [ultimaHoraConexion, setUltimaHoraConexion] = useState('');
   const [logsSegundoPlano, setLogsSegundoPlano] = useState([]);
   const [consultasEnviadas, setConsultasEnviadas] = useState([]);
@@ -60,8 +60,8 @@ function SSMLocationApp() {
   const hermandadSeleccionadaRef = useRef('');
   const mapaRef = useRef(null);
   const timestampUltimaActualizacionRef = useRef(0);
-  const timestampUltimoChequeoGPSRef = useRef(0); // v2.29: Control de latido cada 20s
-  const ultimaPosEnviadaRef = useRef(null); // v2.28: Persistencia de última posición para cálculo de 15m
+  const timestampUltimoChequeoGPSRef = useRef(0); // Control de latido GPS cada 15s
+  const ultimaPosEnviadaRef = useRef(null); // Persistencia de última posición para cálculo de distancia (10m)
   const estaProcesandoRef = useRef(false);
 
   // Sincronizar referencias con estados reactivos
@@ -234,7 +234,7 @@ function SSMLocationApp() {
           const transcurridoEnvio = ahora - timestampUltimaActualizacionRef.current;
           const transcurridoChequeo = ahora - timestampUltimoChequeoGPSRef.current;
 
-          // REGULACIÓN (Throttling) v2.29: Solo procesamos si han pasado 20s o es el primer latido
+          // REGULACIÓN (Throttling): Solo procesamos si han pasado 15s o es el primer latido
           if (transcurridoChequeo < INTERVALO_CHEQUEO_GPS_MS && timestampUltimoChequeoGPSRef.current !== 0) {
             return;
           }
@@ -252,20 +252,20 @@ function SSMLocationApp() {
             );
           }
 
-          // Log de latido GPS (Ahora será exactamente cada 20s)
+          // Log de latido GPS (cada 15s)
           agregarLog(`📍 GPS Nativo: ${ubi.latitude.toFixed(5)},${ubi.longitude.toFixed(5)}${distanciaRecorrida > 0 ? ` (+${distanciaRecorrida}m)` : ''}`);
 
-          // LÓGICA HÍBRIDA: Tiempo (60s) O Distancia (15m)
+          // LÓGICA HÍBRIDA: Tiempo (30s) O Distancia (10m)
           const tocaPorTiempo = transcurridoEnvio >= INTERVALO_ENVIO_MS;
           const tocaPorDistancia = distanciaRecorrida >= UMBRAL_DISTANCIA_METROS;
 
           if (tocaPorTiempo || tocaPorDistancia || timestampUltimaActualizacionRef.current === 0) {
-            const motivo = tocaPorDistancia ? `Movimiento (${distanciaRecorrida}m)` : 'Tiempo (60s)';
+            const motivo = tocaPorDistancia ? `Movimiento (${distanciaRecorrida}m)` : `Tiempo (${INTERVALO_ENVIO_MS / 1000}s)`;
             timestampUltimaActualizacionRef.current = ahora;
             ultimaPosEnviadaRef.current = ubi;
 
             agregarLog(`⚡ Disparando envío: ${motivo}`);
-            setProximaActualizacionEn(60); // Resetear contador al disparar envío
+            setProximaActualizacionEn(INTERVALO_ENVIO_MS / 1000); // Resetear contador al disparar envío
             await procesarUbicacion(ubi);
           }
         }
