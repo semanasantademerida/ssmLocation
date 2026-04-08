@@ -9,6 +9,15 @@
          ocupe el 100% del ancho de la pantalla del dispositivo -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
+    <!-- Meta etiquetas para Redes Sociales (Open Graph) -->
+    <meta property="og:title" content="SSM Location Mérida - Seguimiento en Directo">
+    <meta property="og:description" content="Sigue la ubicación en tiempo real de las estaciones de penitencia de la Semana Santa de Mérida.">
+    <meta property="og:image" content="https://gps.semanasantademerida.es/publicidad/cabecera%20ssm.png">
+    <meta property="og:url" content="https://gps.semanasantademerida.es/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="description" content="Portal oficial de seguimiento GPS para las procesiones de la Semana Santa de Mérida.">
+
     <!-- =====================================================================
          LIBRERÍAS EXTERNAS
          - Leaflet 1.9.4: librería para renderizar mapas interactivos con OSM

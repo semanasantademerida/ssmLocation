@@ -1,0 +1,29 @@
+# Deshabilitar el listado de directorios
+Options -Indexes
+
+# Bloquear el acceso a archivos de configuración
+<Files "config.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "config.example.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "database_schema.sql">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Forzar UTF-8
+AddDefaultCharset UTF-8
+
+# Cabeceras de seguridad básicas
+<IfModule mod_headers.c>
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

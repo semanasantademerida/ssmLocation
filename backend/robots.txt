@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /index.php
+Allow: /css/
+Allow: /js/
+Allow: /img_Marcadores/
+Allow: /publicidad/
+Disallow: /config.php
+Disallow: /config.example.php
+Disallow: /database_schema.sql
+Disallow: /gestionmapa.php
+Disallow: /actualizar_activos.php
+
+Sitemap: https://gps.semanasantademerida.es/sitemap.xml
