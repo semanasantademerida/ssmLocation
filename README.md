@@ -98,6 +98,7 @@ $DB_USER = 'tu_usuario';
 $DB_PASS = 'tu_contraseña';
 $DB_NAME = 'tu_base_de_datos';
 $APP_SECRET = 'tu_clave_secreta'; // Debe coincidir con VITE_API_KEY
+$PANEL_PASSWORD = 'tu_password_panel'; // Contraseña para gestionmapa.php
 ?>
 ```
 
