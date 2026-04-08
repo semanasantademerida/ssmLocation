@@ -1,3 +1,10 @@
+## [2.34] - 2026-04-08
+### Seguridad y Despliegue Público
+- **Prevención XSS (Cross-Site Scripting)**: Implementada doble capa de sanitización en el backend (`recibir_json.php` y `consulta_hermandades_activas.php`) mediante `htmlspecialchars()` para bloquear inyección de código malicioso en el mapa de Leaflet.
+- **Plantilla de Configuración**: Creado archivo `config.example.php` para estandarizar la instalación técnica sin exponer contraseñas en el repositorio público.
+- **Documentación Open Source**: Actualizado el `README.md` mejorando la claridad de los pasos de instalación en el servidor.
+- **Limpieza de Repositorio**: Consolidación definitiva de código en la rama `main` y purga de versiones obsoletas o temporales en GitHub.
+
 ## [2.33] - 2026-02-02
 ### Nuevas Funcionalidades
 - **Telemetría de Batería**: Integración con `@capacitor/device` para enviar el porcentaje de batería en cada actualización de ubicación.
