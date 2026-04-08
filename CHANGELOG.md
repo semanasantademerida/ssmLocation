@@ -1,5 +1,6 @@
 ## [2.34] - 2026-04-08
 ### Seguridad y Despliegue Público
+- **Portal Público (Tracker)**: Añadida la interfaz del mapa público (`index.php`, marcadores y CSS/JS) con **Subresource Integrity (SRI)** habilitada en todas las bibliotecas de terceros para proteger la web a nivel corporativo frente a ataques de inyección a través de CDNs.
 - **Prevención XSS (Cross-Site Scripting)**: Implementada doble capa de sanitización en el backend (`recibir_json.php` y `consulta_hermandades_activas.php`) mediante `htmlspecialchars()` para bloquear inyección de código malicioso en el mapa de Leaflet.
 - **Seguridad en Panel de Control**: Refactorizado el archivo `actualizar_activos.php` para bloquear inyecciones SQL (SQL Injection) en el panel de mandos, estandarizado el uso de credenciales privadas, y añadido control contra estados vacíos si ninguna hermandad está marcada.
 - **Plantilla de Configuración**: Creado archivo `config.example.php` para estandarizar la instalación técnica sin exponer contraseñas en el repositorio público.
