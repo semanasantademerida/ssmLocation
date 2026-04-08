@@ -64,6 +64,8 @@ La aplicación ha sido refactorizada y optimizada en la versión **2.33** siguie
 - `actualizar_activos.php`: Motor SQL (blindado contra Inyecciones SQL) para la activación manual de recorridos.
 - `config.example.php`: Plantilla estandarizada de credenciales de Base de Datos.
 - `database_schema.sql`: Estructura completa de las tablas SQL para clones del proyecto.
+- `.htaccess`: Reglas de seguridad, protección de archivos y cabeceras CORS.
+- `robots.txt`: Instrucciones de indexación para motores de búsqueda.
 
 
 ## 🛠️ Tecnologías

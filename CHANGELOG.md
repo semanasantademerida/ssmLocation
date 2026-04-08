@@ -1,5 +1,8 @@
 ## [2.34] - 2026-04-08
 ### Seguridad y Despliegue Público
+- **Configuración de Servidor (.htaccess)**: Implementado archivo de configuración con directivas de seguridad para bloquear el listado de directorios, proteger archivos sensibles (`config.php`, `database_schema.sql`) y restaurar cabeceras **CORS** para garantizar la comunicación con la App móvil.
+- **Optimización Social y SEO**: Integración de etiquetas **Open Graph (OG)** en el portal público para previsualizaciones premium en redes sociales (WhatsApp/Facebook) y creación de `robots.txt` para una indexación controlada por buscadores.
+- **Esquema de Base de Datos Open Source**: Publicado archivo `database_schema.sql` con la estructura oficial del proyecto y datos de referencia, sanitizado de cualquier información privada o coordenadas de prueba.
 - **Sistema de Acceso (Login)**: Integrado sistema de seguridad mediante credencial de acceso para el panel de contro de rutas con autenticación obligatoria y protección con variables de sesión PHP nativas en las APIs de actualización (actualizar_activos.php).
 - **Identidad Corporativa**: Implementación del logo institucional (`cabecera ssm.png`) en el sistema de login y el header del dashboard en sustitución de los iconos genéricos predeterminados.
 - **Portal Público (Tracker)**: Añadida la interfaz del mapa público (`index.php`, marcadores y CSS/JS) con **Subresource Integrity (SRI)** habilitada en todas las bibliotecas de terceros para proteger la web a nivel corporativo frente a ataques de inyección a través de CDNs.
