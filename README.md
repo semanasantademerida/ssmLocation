@@ -63,6 +63,7 @@ La aplicación ha sido refactorizada y optimizada en la versión **2.33** siguie
 - `consulta_hermandades_activas.php`: API JSON de solo lectura que proporciona el estado actual y ubicaciones.
 - `actualizar_activos.php`: Motor SQL (blindado contra Inyecciones SQL) para la activación manual de recorridos.
 - `config.example.php`: Plantilla estandarizada de credenciales de Base de Datos.
+- `database_schema.sql`: Estructura completa de las tablas SQL para clones del proyecto.
 
 
 ## 🛠️ Tecnologías
