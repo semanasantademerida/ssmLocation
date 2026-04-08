@@ -78,8 +78,8 @@ VITE_API_URL=http://tu-servidor.com/recibir_json.php
 VITE_API_KEY=tu_clave_secreta
 ```
 
-### 2. Backend PHP (`config.php`)
-En el directorio raíz (para subirlo a tu servidor), crea un archivo llamado `config.php`:
+### 2. Backend PHP (`backend/config.php`)
+En el directorio `backend/` (para subirlo a tu servidor), crea un archivo llamado `config.php` basándote en la plantilla `config.example.php`:
 ```php
 <?php
 $DB_ADDRESS = 'localhost:3306';
