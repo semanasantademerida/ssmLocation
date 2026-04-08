@@ -20,10 +20,16 @@ Options -Indexes
 # Forzar UTF-8
 AddDefaultCharset UTF-8
 
-# Cabeceras de seguridad básicas
+# Cabeceras de seguridad y CORS
 <IfModule mod_headers.c>
+    # Seguridad básica
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # CORS (Necesario para la comunicación con la App móvil)
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
 </IfModule>
