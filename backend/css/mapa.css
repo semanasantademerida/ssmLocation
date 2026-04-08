@@ -1,0 +1,173 @@
+/* ==========================================================================
+   MAPA SSM - Estilos principales
+   Página de seguimiento en directo de la Semana Santa de Mérida
+   ========================================================================== */
+
+/* Forzar que html y body ocupen toda la altura de la ventana,
+   necesario para que el mapa se expanda correctamente */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Disposición vertical de los bloques:
+   logo → cabecera → banner → mapa (de arriba a abajo) */
+body {
+    display: -webkit-flex;
+    /* Prefijo para versiones antiguas de Safari en iOS */
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   LOGO SUPERIOR
+   ========================================================================== */
+#logo_superior {
+    text-align: center;
+    padding: 10px 0;
+    background: #fff;
+}
+
+#logo_superior img {
+    max-width: 40%;
+    height: auto;
+}
+
+/* ==========================================================================
+   CABECERA DE TEXTOS
+   ========================================================================== */
+#cabecera {
+    text-align: center;
+    background: #ffffff;
+    padding: 12px 5px 15px 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* clamp(mínimo, preferido, máximo): tamaño tipográfico fluido
+   que se adapta al ancho de pantalla sin media queries */
+#cabecera h1 {
+    margin: 0;
+    font-size: clamp(20px, 3.2vw, 34px);
+    font-weight: 700;
+    color: #003366;
+    letter-spacing: 1px;
+}
+
+#cabecera h2 {
+    margin: 8px 0 0 0;
+    font-size: clamp(13px, 2.2vw, 22px);
+    font-weight: 400;
+    color: #555;
+}
+
+#cabecera h3 {
+    margin: 12px 0 5px 0;
+    font-size: clamp(13px, 2vw, 20px);
+    font-weight: 600;
+    color: #8a0000;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   BANNER DE PUBLICIDAD
+   ========================================================================== */
+#banner {
+    text-align: center;
+    background: #fff;
+    padding: 10px 0;
+}
+
+#banner img {
+    max-width: 95%;
+    height: auto;
+}
+
+/* ==========================================================================
+   MAPA
+   flex:1 hace que el mapa ocupe TODO el espacio vertical restante
+   después del logo, cabecera y banner.
+   min-height es el fallback para Safari/iOS, donde flex:1
+   puede calcularse como 0px y el mapa quedaría invisible.
+   ========================================================================== */
+#map {
+    -webkit-flex: 1;
+    /* Prefijo para Safari antiguo en iOS */
+    flex: 1;
+    width: 100%;
+    min-height: 300px;
+}
+
+/* ==========================================================================
+   AJUSTES PARA PC (≥900px)
+   ========================================================================== */
+@media (min-width: 900px) {
+
+    #logo_superior img {
+        max-width: 160px;
+    }
+
+    #banner img {
+        max-width: 420px;
+    }
+
+    #cabecera {
+        padding: 8px 0 10px 0;
+    }
+
+    #cabecera h1 {
+        font-size: 30px;
+    }
+
+    #cabecera h2 {
+        font-size: 18px;
+    }
+
+    #cabecera h3 {
+        font-size: 17px;
+    }
+}
+
+/* ==========================================================================
+   AJUSTES PARA MÓVIL (≤600px)
+   Versiones más compactas de logo, cabecera y banner
+   ========================================================================== */
+@media (max-width: 600px) {
+
+    #logo_superior {
+        padding: 4px 0;
+    }
+
+    #logo_superior img {
+        max-width: 32%;
+    }
+
+    #cabecera {
+        padding: 6px 0 8px 0;
+    }
+
+    #cabecera h1 {
+        font-size: 5.5vw;
+        margin-bottom: 2px;
+    }
+
+    #cabecera h2 {
+        font-size: 3.8vw;
+        margin-top: 2px;
+    }
+
+    #cabecera h3 {
+        font-size: 3.8vw;
+        margin-top: 4px;
+    }
+
+    #banner {
+        padding: 6px 0;
+    }
+
+    #banner img {
+        max-width: 90%;
+    }
+}
