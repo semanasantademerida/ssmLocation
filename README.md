@@ -52,9 +52,17 @@ La aplicación ha sido refactorizada y optimizada en la versión **2.33** siguie
 - `deviceUtils.js`: Gestión de la identidad única del dispositivo móvil.
 - `distanceUtils.js`: Cálculos matemáticos geodésicos (Haversine) para el seguimiento híbrido.
 
-### 🏠 Raíz de Código
+### 🏠 Raíz de Código (Frontend)
 - `App.jsx`: Orquestador central que gestiona el estado global y los servicios.
 - `index.css`: Sistema de estilos premium y animaciones unificadas.
+
+### 🌍 `/backend` (Infraestructura de Servidor y Mapa Web)
+- `index.php`: Portal web público de seguimiento en vivo con escudos Anti-XSS y protección Subresource Integrity (SRI).
+- `gestionmapa.php`: Panel de control interactivo para gestionar qué recorridos se emiten en directo.
+- `recibir_json.php`: Endpoint seguro de ingesta de coordenadas desde las apps móviles.
+- `consulta_hermandades_activas.php`: API JSON de solo lectura que proporciona el estado actual y ubicaciones.
+- `actualizar_activos.php`: Motor SQL (blindado contra Inyecciones SQL) para la activación manual de recorridos.
+- `config.example.php`: Plantilla estandarizada de credenciales de Base de Datos.
 
 
 ## 🛠️ Tecnologías
