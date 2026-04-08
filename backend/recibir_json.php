@@ -55,12 +55,12 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8mb4");
 
 try {
-    // Datos recibidos
-    $id_dispositivo = isset($data['device_id']) ? $data['device_id'] : "unknown";
-    $hermandad = $data['hermandad'];
+    // Datos recibidos (Saneados contra XSS)
+    $id_dispositivo = isset($data['device_id']) ? htmlspecialchars($data['device_id'], ENT_QUOTES, 'UTF-8') : "unknown";
+    $hermandad = htmlspecialchars($data['hermandad'], ENT_QUOTES, 'UTF-8');
     $lat = $data['latitude'];
     $lon = $data['longitude'];
-    $address = isset($data['address']) ? $data['address'] : "";
+    $address = isset($data['address']) ? htmlspecialchars($data['address'], ENT_QUOTES, 'UTF-8') : "";
     // [v2.33] Batería (puede ser null si es una versión antigua de la app)
     $bateria = isset($data['bateria']) ? intval($data['bateria']) : null;
 

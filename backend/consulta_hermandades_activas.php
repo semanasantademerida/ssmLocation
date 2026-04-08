@@ -74,6 +74,9 @@ $resultado = array();
 if ($result_eventos && $result_eventos->num_rows > 0) {
     // Si hay filas, las recorremos y añadimos al array.
     while ($row = $result_eventos->fetch_assoc()) {
+        // Sanitización adicional en la salida por si hubiera datos antiguos heredados sin sanitizar
+        $row['address'] = htmlspecialchars($row['address'] ?? '', ENT_QUOTES, 'UTF-8');
+        $row['nombre_coloquial'] = htmlspecialchars($row['nombre_coloquial'] ?? '', ENT_QUOTES, 'UTF-8');
         $resultado[] = $row;
     }
 }
