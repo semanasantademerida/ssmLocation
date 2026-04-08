@@ -2,6 +2,13 @@
 // CABECERA PARA QUE EL NAVEGADOR RECIBA UN JSON CORRECTO
 header('Content-Type: application/json; charset=utf-8');
 
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Acceso denegado"]);
+    exit();
+}
+
 // 1. OBTENER DATOS (Y manejar el caso en el que no se marque ninguna)
 $activas = isset($_POST["activas"]) ? $_POST["activas"] : [];
 

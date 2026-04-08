@@ -12,4 +12,5 @@ $DB_USER = 'usuario_db';
 $DB_PASS = 'contraseña_db';
 $DB_NAME = 'nombre_db';
 $APP_SECRET = 'clave_secreta_api'; // Debe coincidir con VITE_API_KEY
+$PANEL_PASSWORD = 'password_del_panel'; // Contraseña de acceso a gestionmapa.php
 ?>

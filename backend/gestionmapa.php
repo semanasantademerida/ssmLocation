@@ -1,3 +1,67 @@
+<?php
+session_start();
+require_once('config.php');
+
+// Procesamiento de Login
+if (isset($_POST['login_pass'])) {
+    if ($_POST['login_pass'] === $PANEL_PASSWORD) {
+        $_SESSION['logged_in'] = true;
+    } else {
+        $error_login = "Contraseña incorrecta";
+    }
+}
+
+// Cierre de Sesión
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: gestionmapa.php");
+    exit();
+}
+
+// Bloqueo si no hay sesión
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SSM Location Dashboard</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #e2e8f0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 320px; text-align: center; }
+        .logo-c { width: 50px; height: 50px; background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: white; margin-bottom: 20px; }
+        h2 { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin: 0 0 5px 0; }
+        p { color: #64748b; font-size: 0.85rem; margin-bottom: 25px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 2px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+        input:focus { border-color: #6366f1; }
+        button { width: 100%; padding: 12px; background: #6366f1; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; transition: background 0.2s; }
+        button:hover { background: #4f46e5; }
+        .error { color: #ef4444; font-size: 0.85rem; margin-bottom: 15px; font-weight: 500; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="logo-c">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+        </div>
+        <h2>Acceso Restringido</h2>
+        <p>Panel de Gestión de Mapa</p>
+        <?php if(isset($error_login)) echo "<div class='error'>$error_login</div>"; ?>
+        <form method="POST">
+            <input type="password" name="login_pass" placeholder="Contraseña secreta" required autofocus>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
+<?php
+    exit(); // Previene que cargue el resto del dashboard
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -334,6 +398,7 @@
                 <span class="brand-subtitle">Panel de Control</span>
             </div>
         </div>
+        <a href="?logout=1" style="color: #64748b; font-size: 0.9rem; font-weight: 500; text-decoration: none; padding: 6px 12px; border-radius: 6px; border: 1px solid #e2e8f0; transition: all 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='transparent'">Cerrar Sesión</a>
     </header>
 
     <!-- 2. LAYOUT DIVIDIDO (SPLIT SCREEN) -->
